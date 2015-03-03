@@ -184,14 +184,14 @@ end
 
 -- Draw a tile from a tetromino
 function Platform:drawTile(x, y, tile, shadow)
-    love.graphics.drawq(self.m_bmpBlocks, self.m_blocks[shadow][tile], x, y)
+    love.graphics.draw(self.m_bmpBlocks, self.m_blocks[shadow][tile], x, y)
 end
 
 -- Draw a number on the given position
 function Platform:drawNumber(x, y, number, length, color)
     local pos = 0
     repeat
-        love.graphics.drawq(self.m_bmpNumbers, self.m_numbers[color][number % 10],
+        love.graphics.draw(self.m_bmpNumbers, self.m_numbers[color][number % 10],
                             x + NUMBER_WIDTH * (length - pos), y)
         number = math.floor(number / 10)
         pos = pos + 1
