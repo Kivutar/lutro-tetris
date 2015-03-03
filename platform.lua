@@ -75,9 +75,9 @@ function Platform:init()
     math.randomseed(os.time())
 
     -- Load images.
-    self.m_bmpBackground = love.graphics.newImage("back.png")
+    self.m_bmpBackground = love.graphics.newImage("assets/back.png")
     
-    self.m_bmpBlocks = love.graphics.newImage("blocks.png")
+    self.m_bmpBlocks = love.graphics.newImage("assets/blocks.png")
     self.m_bmpBlocks:setFilter("nearest", "nearest")
     local w = self.m_bmpBlocks:getWidth()
     local h = self.m_bmpBlocks:getHeight()
@@ -101,7 +101,7 @@ function Platform:init()
         end
     end
     
-    self.m_bmpNumbers = love.graphics.newImage("numbers.png")
+    self.m_bmpNumbers = love.graphics.newImage("assets/numbers.png")
     self.m_bmpNumbers:setFilter("nearest", "nearest")
     w = self.m_bmpNumbers:getWidth()
     h = self.m_bmpNumbers:getHeight()
