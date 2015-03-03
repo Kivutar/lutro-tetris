@@ -83,12 +83,12 @@ function Platform:init()
     local h = self.m_bmpBlocks:getHeight()
 
     -- Load music.
-	self.m_musicIntro = love.audio.newSource("stc_theme_intro.ogg")
-	self.m_musicIntro:setVolume(0.5)
-	self.m_musicIntro:play()
-	self.m_musicLoop = love.audio.newSource("stc_theme_loop.ogg", "stream")
-	self.m_musicLoop:setLooping(true)
-	self.m_musicLoop:setVolume(0.5)
+	--self.m_musicIntro = love.audio.newSource("stc_theme_intro.ogg")
+	--self.m_musicIntro:setVolume(0.5)
+	--self.m_musicIntro:play()
+	--self.m_musicLoop = love.audio.newSource("stc_theme_loop.ogg", "stream")
+	--self.m_musicLoop:setLooping(true)
+	--self.m_musicLoop:setVolume(0.5)
 	m_musicMute = false
 
     -- Create quads for blocks

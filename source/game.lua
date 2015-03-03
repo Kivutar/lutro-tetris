@@ -605,8 +605,54 @@ function Game:dropTetromino()
 	end
 end
 
+local LEFT = 0
+local RIGHT = 0
+local DOWN = 0
+local UP = 0
+
 -- Main game function called every frame.
 function Game:update()
+    local JOY_LEFT = love.input.joypad(love.input.JOY_LEFT)
+    local JOY_RIGHT = love.input.joypad(love.input.JOY_RIGHT)
+    local JOY_DOWN = love.input.joypad(love.input.JOY_DOWN)
+    local JOY_UP = love.input.joypad(love.input.JOY_UP)
+    local JOY_A = love.input.joypad(love.input.JOY_A)
+
+    if JOY_LEFT == 1 and LEFT == 0 then
+        Game:onEventStart(Game.Event.MOVE_LEFT)
+        LEFT = 1
+    end
+    if JOY_RIGHT == 1 and RIGHT == 0 then
+        Game:onEventStart(Game.Event.MOVE_RIGHT)
+        RIGHT = 1
+    end
+    if JOY_LEFT == 0 and LEFT == 1 then
+        Game:onEventEnd(Game.Event.MOVE_LEFT)
+        LEFT = 0
+    end
+    if JOY_RIGHT == 0 and RIGHT == 1 then
+        Game:onEventEnd(Game.Event.MOVE_RIGHT)
+        RIGHT = 0
+    end
+
+    if JOY_DOWN == 1 and DOWN == 0 then
+        Game:onEventStart(Game.Event.MOVE_DOWN)
+        DOWN = 1
+    end
+    if JOY_UP == 1 and UP == 0 then
+        Game:onEventStart(Game.Event.ROTATE_CW)
+        UP = 1
+    end
+    if JOY_DOWN == 0 and DOWN == 1 then
+        Game:onEventEnd(Game.Event.MOVE_DOWN)
+        DOWN = 0
+    end
+    if JOY_UP == 0 and UP == 1 then
+        Game:onEventEnd(Game.Event.ROTATE_CW)
+        UP = 0
+    end
+
+
 	-- Update game state.
 	if self.m_isOver then
 		if isFlagSet(self.m_events, Game.Event.RESTART) then

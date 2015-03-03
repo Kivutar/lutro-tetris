@@ -29,8 +29,15 @@
 --   OTHER DEALINGS IN THE SOFTWARE.                                          --
 -- -------------------------------------------------------------------------- --
 
+love = lutro
+
 require("game")
 require("platform")
+
+function love.conf(t)
+    t.width = 480
+    t.height = 272
+end
 
 function love.load()
     Game:init()
