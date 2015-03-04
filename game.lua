@@ -744,6 +744,9 @@ function Game:update()
 				if isFlagSet(self.m_events, Game.Event.ROTATE_CW) then
 					Game:rotateTetromino(true)
 				end
+				if isFlagSet(self.m_events, Game.Event.ROTATE_CCW) then
+					Game:rotateTetromino(false)
+				end
 
 				if isFlagSet(self.m_events, Game.Event.MOVE_RIGHT) then
 					Game:moveTetromino(1, 0)
@@ -792,6 +795,9 @@ function Game:onEventStart(command)
     elseif (command == Game.Event.ROTATE_CW) then
         self.m_events = setFlag(self.m_events, Game.Event.ROTATE_CW)
         self.m_delayRotation = ROTATION_AUTOREPEAT_DELAY
+    elseif (command == Game.Event.ROTATE_CCW) then
+        self.m_events = setFlag(self.m_events, Game.Event.ROTATE_CCW)
+        self.m_delayRotation = ROTATION_AUTOREPEAT_DELAY
     elseif (command == Game.Event.MOVE_LEFT) then
         self.m_events = setFlag(self.m_events, Game.Event.MOVE_LEFT)
         self.m_delayLeft = DAS_DELAY_TIMER
@@ -816,6 +822,8 @@ function Game:onEventEnd(command)
     elseif (command == Game.Event.MOVE_RIGHT) then
         self.m_delayRight = -1
     elseif (command == Game.Event.ROTATE_CW) then
+        self.m_delayRotation = -1
+    elseif (command == Game.Event.ROTATE_CCW) then
         self.m_delayRotation = -1
 	end
 end
