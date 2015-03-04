@@ -609,6 +609,7 @@ local LEFT = 0
 local RIGHT = 0
 local DOWN = 0
 local UP = 0
+local A  = 0
 
 -- Main game function called every frame.
 function Game:update()
@@ -622,13 +623,14 @@ function Game:update()
         Game:onEventStart(Game.Event.MOVE_LEFT)
         LEFT = 1
     end
-    if JOY_RIGHT == 1 and RIGHT == 0 then
-        Game:onEventStart(Game.Event.MOVE_RIGHT)
-        RIGHT = 1
-    end
     if JOY_LEFT == 0 and LEFT == 1 then
         Game:onEventEnd(Game.Event.MOVE_LEFT)
         LEFT = 0
+    end
+
+    if JOY_RIGHT == 1 and RIGHT == 0 then
+        Game:onEventStart(Game.Event.MOVE_RIGHT)
+        RIGHT = 1
     end
     if JOY_RIGHT == 0 and RIGHT == 1 then
         Game:onEventEnd(Game.Event.MOVE_RIGHT)
@@ -639,16 +641,26 @@ function Game:update()
         Game:onEventStart(Game.Event.MOVE_DOWN)
         DOWN = 1
     end
-    if JOY_UP == 1 and UP == 0 then
-        Game:onEventStart(Game.Event.ROTATE_CW)
-        UP = 1
-    end
     if JOY_DOWN == 0 and DOWN == 1 then
         Game:onEventEnd(Game.Event.MOVE_DOWN)
         DOWN = 0
     end
-    if JOY_UP == 0 and UP == 1 then
+
+    if JOY_A == 1 and A == 0 then
+        Game:onEventStart(Game.Event.ROTATE_CW)
+        A = 1
+    end
+    if JOY_A == 0 and A == 1 then
         Game:onEventEnd(Game.Event.ROTATE_CW)
+        A = 0
+    end
+
+    if JOY_UP == 1 and UP == 0 then
+        Game:onEventStart(Game.Event.DROP)
+        UP = 1
+    end
+    if JOY_UP == 0 and UP == 1 then
+        Game:onEventEnd(Game.Event.DROP)
         UP = 0
     end
 
