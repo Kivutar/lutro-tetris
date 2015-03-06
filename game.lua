@@ -614,12 +614,12 @@ local B  = 0
 
 -- Main game function called every frame.
 function Game:update()
-    local JOY_LEFT = love.input.joypad(love.input.JOY_LEFT)
-    local JOY_RIGHT = love.input.joypad(love.input.JOY_RIGHT)
-    local JOY_DOWN = love.input.joypad(love.input.JOY_DOWN)
-    local JOY_UP = love.input.joypad(love.input.JOY_UP)
-    local JOY_A = love.input.joypad(love.input.JOY_A)
-    local JOY_B = love.input.joypad(love.input.JOY_B)
+    local JOY_LEFT = love.input.joypad('left')
+    local JOY_RIGHT = love.input.joypad('right')
+    local JOY_DOWN = love.input.joypad('down')
+    local JOY_UP = love.input.joypad('up')
+    local JOY_A = love.input.joypad('a')
+    local JOY_B = love.input.joypad('b')
 
     if JOY_LEFT == 1 and LEFT == 0 then
         Game:onEventStart(Game.Event.MOVE_LEFT)
