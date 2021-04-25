@@ -53,7 +53,7 @@ Game = {
     BOARD_TILEMAP_HEIGHT = 22;
 
     -- Error codes.
-    Error = { 
+    Error = {
         NONE         =  0,   -- Everything is OK, oh wonders!
         PLAYER_QUITS =  1,   -- The user quits, our fail
         NO_MEMORY    = -1,   -- Not enough memory
@@ -61,7 +61,7 @@ Game = {
         NO_IMAGES    = -3,   -- Problem loading the image files
         PLATFORM     = -4,   -- Problem creating platform
         ASSERT       = -100  -- Something went very very wrong...
-    }; 
+    };
 
     -- Game events.
     Event = {
@@ -87,7 +87,7 @@ Game = {
     -- They are indexes and must be between: 0 - [TETROMINO_TYPES - 1]
     -- http://tetris.wikia.com/wiki/Tetromino
     -- Initial cell disposition is commented below.
-    TetrominoType = { 
+    TetrominoType = {
         --      ....
         --      ####
         --      ....
@@ -137,7 +137,7 @@ Game = {
         PURPLE = 7,
         WHITE  = 0  -- Used for effects (if any)
     };
-    
+
     COLORS = 8;
 
     -- Create data structure that holds information about our tetromino blocks.
@@ -163,7 +163,7 @@ Game = {
         };
         return stats;
     end;
-    
+
     -- Game events are stored in bits in this variable.
     -- It must be cleared to Game.Event.NONE after being used.
     m_events = nil;
@@ -688,7 +688,7 @@ function Game:update()
 
 		-- Process delayed autoshift.
 		local timeDelta = currentTime - self.m_systemTime
-        
+
 		if (self.m_delayDown > 0) then
 			self.m_delayDown = self.m_delayDown - timeDelta
 			if (self.m_delayDown <= 0) then
@@ -728,7 +728,7 @@ function Game:update()
 			-- We achieve the effect of pausing the game
 			-- adding the last frame duration to lastFallTime.
 			self.m_lastFallTime = self.m_lastFallTime + (currentTime - self.m_systemTime)
-		else 
+		else
 			if (self.m_events ~= Game.Event.NONE) then
 				if isFlagSet(self.m_events, Game.Event.SHOW_NEXT) then
 					self.m_showPreview = not self.m_showPreview
