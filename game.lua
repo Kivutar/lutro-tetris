@@ -605,75 +605,75 @@ function Game:dropTetromino()
 	end
 end
 
-local LEFT = 0
-local RIGHT = 0
-local DOWN = 0
-local UP = 0
-local A  = 0
-local B  = 0
+local LEFT = false
+local RIGHT = false
+local DOWN = false
+local UP = false
+local A  = false
+local B  = false
 
 -- Main game function called every frame.
 function Game:update()
-    local JOY_LEFT = love.input.joypad('left')
-    local JOY_RIGHT = love.input.joypad('right')
-    local JOY_DOWN = love.input.joypad('down')
-    local JOY_UP = love.input.joypad('up')
-    local JOY_A = love.input.joypad('a')
-    local JOY_B = love.input.joypad('b')
+    local JOY_LEFT = love.joystick.isDown(1, RETRO_DEVICE_ID_JOYPAD_LEFT)
+    local JOY_RIGHT = love.joystick.isDown(1, RETRO_DEVICE_ID_JOYPAD_RIGHT)
+    local JOY_DOWN = love.joystick.isDown(1, RETRO_DEVICE_ID_JOYPAD_DOWN)
+    local JOY_UP = love.joystick.isDown(1, RETRO_DEVICE_ID_JOYPAD_UP)
+    local JOY_A = love.joystick.isDown(1, RETRO_DEVICE_ID_JOYPAD_A)
+    local JOY_B = love.joystick.isDown(1, RETRO_DEVICE_ID_JOYPAD_B)
 
-    if JOY_LEFT == 1 and LEFT == 0 then
+    if JOY_LEFT and not LEFT then
         Game:onEventStart(Game.Event.MOVE_LEFT)
-        LEFT = 1
+        LEFT = true
     end
-    if JOY_LEFT == 0 and LEFT == 1 then
+    if not JOY_LEFT and LEFT then
         Game:onEventEnd(Game.Event.MOVE_LEFT)
-        LEFT = 0
+        LEFT = false
     end
 
-    if JOY_RIGHT == 1 and RIGHT == 0 then
+    if JOY_RIGHT and not RIGHT then
         Game:onEventStart(Game.Event.MOVE_RIGHT)
-        RIGHT = 1
+        RIGHT = true
     end
-    if JOY_RIGHT == 0 and RIGHT == 1 then
+    if not JOY_RIGHT and RIGHT then
         Game:onEventEnd(Game.Event.MOVE_RIGHT)
-        RIGHT = 0
+        RIGHT = false
     end
 
-    if JOY_DOWN == 1 and DOWN == 0 then
+    if JOY_DOWN and not DOWN then
         Game:onEventStart(Game.Event.MOVE_DOWN)
-        DOWN = 1
+        DOWN = true
     end
-    if JOY_DOWN == 0 and DOWN == 1 then
+    if not JOY_DOWN and DOWN then
         Game:onEventEnd(Game.Event.MOVE_DOWN)
-        DOWN = 0
+        DOWN = false
     end
 
-    if JOY_B == 1 and B == 0 then
+    if JOY_B and not B then
         Game:onEventStart(Game.Event.ROTATE_CCW)
-        B = 1
+        B = true
     end
 
-    if JOY_B == 0 and B == 1 then
+    if not JOY_B == 0 and B then
         Game:onEventEnd(Game.Event.ROTATE_CCW)
-        B = 0
+        B = false
     end
 
-    if JOY_A == 1 and A == 0 then
+    if JOY_A and not A then
         Game:onEventStart(Game.Event.ROTATE_CW)
-        A = 1
+        A = true
     end
-    if JOY_A == 0 and A == 1 then
+    if not JOY_A and A then
         Game:onEventEnd(Game.Event.ROTATE_CW)
-        A = 0
+        A = false
     end
 
-    if JOY_UP == 1 and UP == 0 then
+    if JOY_UP and not UP then
         Game:onEventStart(Game.Event.DROP)
-        UP = 1
+        UP = true
     end
-    if JOY_UP == 0 and UP == 1 then
+    if not JOY_UP and UP then
         Game:onEventEnd(Game.Event.DROP)
-        UP = 0
+        UP = false
     end
 
 

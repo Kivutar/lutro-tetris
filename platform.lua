@@ -4,10 +4,6 @@
 --   This code is released under the MIT license.                             --
 -- -------------------------------------------------------------------------- --
 
--- Screen size 
-local SCREEN_WIDTH  = 480
-local SCREEN_HEIGHT = 272
-
 -- Size of square tile 
 local TILE_SIZE = 12
 
@@ -55,7 +51,25 @@ local PIECES_LENGTH = 6
 -- Size of number 
 local NUMBER_WIDTH  = 7
 local NUMBER_HEIGHT = 9
-    
+
+-- Libretro joypad buttons const
+RETRO_DEVICE_ID_JOYPAD_B        = 1
+RETRO_DEVICE_ID_JOYPAD_Y        = 2
+RETRO_DEVICE_ID_JOYPAD_SELECT   = 3
+RETRO_DEVICE_ID_JOYPAD_START    = 4
+RETRO_DEVICE_ID_JOYPAD_UP       = 5
+RETRO_DEVICE_ID_JOYPAD_DOWN     = 6
+RETRO_DEVICE_ID_JOYPAD_LEFT     = 7
+RETRO_DEVICE_ID_JOYPAD_RIGHT    = 8
+RETRO_DEVICE_ID_JOYPAD_A        = 9
+RETRO_DEVICE_ID_JOYPAD_X        = 10
+RETRO_DEVICE_ID_JOYPAD_L        = 11
+RETRO_DEVICE_ID_JOYPAD_R        = 12
+RETRO_DEVICE_ID_JOYPAD_L2       = 13
+RETRO_DEVICE_ID_JOYPAD_R2       = 14
+RETRO_DEVICE_ID_JOYPAD_L3       = 15
+RETRO_DEVICE_ID_JOYPAD_R3       = 16
+
 Platform = { 
     m_bmpBackground = nil;
     m_bmpBlocks = nil;
@@ -83,12 +97,12 @@ function Platform:init()
     local h = self.m_bmpBlocks:getHeight()
 
     -- Load music.
-	--self.m_musicIntro = love.audio.newSource("stc_theme_intro.ogg")
-	--self.m_musicIntro:setVolume(0.5)
-	--self.m_musicIntro:play()
-	--self.m_musicLoop = love.audio.newSource("stc_theme_loop.ogg", "stream")
-	--self.m_musicLoop:setLooping(true)
-	--self.m_musicLoop:setVolume(0.5)
+	self.m_musicIntro = love.audio.newSource("assets/stc_theme_intro.ogg", "static")
+	self.m_musicIntro:setVolume(0.5)
+	self.m_musicIntro:play()
+	self.m_musicLoop = love.audio.newSource("assets/stc_theme_loop.ogg", "stream")
+	self.m_musicLoop:setLooping(true)
+	self.m_musicLoop:setVolume(0.5)
 	m_musicMute = false
 
     -- Create quads for blocks
@@ -114,71 +128,6 @@ function Platform:init()
             self.m_numbers[color][digit] = love.graphics.newQuad(NUMBER_WIDTH * digit, NUMBER_HEIGHT * color,
                                                                  NUMBER_WIDTH, NUMBER_HEIGHT, w, h)
         end
-    end
-end
-
--- Process events and notify game.
-function Platform:onKeyDown(key)
-    if (key == "escape") then
-        love.event.push("quit")
-    end
-    if ((key == "left") or (key == "a")) then
-        Game:onEventStart(Game.Event.MOVE_LEFT)
-    end
-    if ((key == "right") or (key == "d")) then
-        Game:onEventStart(Game.Event.MOVE_RIGHT)
-    end
-    if ((key == "down") or (key == "s")) then
-        Game:onEventStart(Game.Event.MOVE_DOWN)
-    end
-    if ((key == "up") or (key == "w")) then
-        Game:onEventStart(Game.Event.ROTATE_CW)
-    end
-    if (key == " ") then
-        Game:onEventStart(Game.Event.DROP)
-    end
-    if (key == "f5") then
-        Game:onEventStart(Game.Event.RESTART)
-    end
-    if (key == "f1") then
-        Game:onEventStart(Game.Event.PAUSE)
-    end
-    if (key == "f2") then
-        Game:onEventStart(Game.Event.SHOW_NEXT)
-    end
-    if (key == "f3") then
-        Game:onEventStart(Game.Event.SHOW_SHADOW)
-    end
-end
-
-function Platform:onKeyUp(key)
-    if ((key == "left") or (key == "a")) then
-        Game:onEventEnd(Game.Event.MOVE_LEFT)
-    end
-    if ((key == "right") or (key == "d")) then
-        Game:onEventEnd(Game.Event.MOVE_RIGHT)
-    end
-    if ((key == "down") or (key == "s")) then
-        Game:onEventEnd(Game.Event.MOVE_DOWN)
-    end
-    if ((key == "up") or (key == "w")) then
-        Game:onEventEnd(Game.Event.ROTATE_CW)
-    end
-    if (key == "f4") then
-		if (self.m_musicMute) then
-			if (self.m_musicIntro) then
-				self.m_musicIntro:resume()
-			else
-				self.m_musicLoop:resume()
-			end
-		else
-			if (self.m_musicIntro) then
-				self.m_musicIntro:pause()
-			else
-				self.m_musicLoop:pause()
-			end
-		end
-		self.m_musicMute = not self.m_musicMute
     end
 end
 

@@ -29,8 +29,6 @@
 --   OTHER DEALINGS IN THE SOFTWARE.                                          --
 -- -------------------------------------------------------------------------- --
 
-love = lutro
-
 require("game")
 require("platform")
 
@@ -49,12 +47,4 @@ end
 
 function love.draw()
     Platform:renderGame()
-end
-
-function love.keypressed(key, unicode)
-    Platform:onKeyDown(key)
-end
-
-function love.keyreleased(key)
-    Platform:onKeyUp(key)
 end
