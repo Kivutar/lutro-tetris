@@ -599,7 +599,7 @@ function Game:dropTetromino()
 	if (self.m_showShadow) then
 		self.m_stats.score = self.m_stats.score + (SCORE_2_FILLED_ROW * (self.m_stats.level + 1) 
                                                   / SCORE_DROP_WITH_SHADOW_DIVISOR)
-	else 
+	else
 		self.m_stats.score = self.m_stats.score + (SCORE_2_FILLED_ROW * (self.m_stats.level + 1)
                                                   / SCORE_DROP_DIVISOR)
 	end
@@ -740,6 +740,7 @@ function Game:update()
 				end
 				if isFlagSet(self.m_events, Game.Event.DROP) then
 					Game:dropTetromino()
+					Platform.fx_drop:play()
 				end
 				if isFlagSet(self.m_events, Game.Event.ROTATE_CW) then
 					Game:rotateTetromino(true)
