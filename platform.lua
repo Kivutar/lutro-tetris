@@ -159,7 +159,6 @@ function Platform:renderGame()
         for i = 0, Game.TETROMINO_SIZE - 1 do
             for j = 0, Game.TETROMINO_SIZE - 1 do
                 if (Game:nextBlock().cells[i][j] ~= Game.Cell.EMPTY) then
-                    print(PREVIEW_X, TILE_SIZE, i)
                     Platform:drawTile(PREVIEW_X + TILE_SIZE * i - 1,
                                       PREVIEW_Y + TILE_SIZE * j - 1,
                                       Game:nextBlock().cells[i][j], 0)

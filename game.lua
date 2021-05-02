@@ -193,7 +193,8 @@ Game = {
     m_delayRight = nil;
     m_delayDown = nil;
 
-    m_delayRotation = nil;
+    m_delayRotationCW = nil;
+	m_delayRotationCCW = nil;
 }
 
 -- The platform must call this method after processing a changed state.
@@ -349,7 +350,8 @@ function Game:start()
 	self.m_delayLeft = -1
 	self.m_delayRight = -1
 	self.m_delayDown = -1
-	self.m_delayRotation = -1
+	self.m_delayRotationCW = -1
+	self.m_delayRotationCCW = -1
 end
 
 -- Initialize the game. The error code (if any) is saved in [mErrorcode].
@@ -650,8 +652,7 @@ function Game:update()
         Game:onEventStart(Game.Event.ROTATE_CCW)
         B = true
     end
-
-    if not JOY_B == 0 and B then
+    if not JOY_B and B then
         Game:onEventEnd(Game.Event.ROTATE_CCW)
         B = false
     end
@@ -707,11 +708,17 @@ function Game:update()
 				self.m_events = setFlag(self.m_events, Game.Event.MOVE_RIGHT)
 			end
 		end
-		if (self.m_delayRotation > 0) then
-			self.m_delayRotation = self.m_delayRotation - timeDelta
-			if (self.m_delayRotation <= 0) then
-				self.m_delayRotation = ROTATION_AUTOREPEAT_TIMER
+		if (self.m_delayRotationCW > 0) then
+			self.m_delayRotationCW = self.m_delayRotationCW - timeDelta
+			if (self.m_delayRotationCW <= 0) then
+				self.m_delayRotationCW = ROTATION_AUTOREPEAT_TIMER
 				self.m_events = setFlag(self.m_events, Game.Event.ROTATE_CW)
+			end
+		elseif (self.m_delayRotationCCW > 0) then
+			self.m_delayRotationCCW = self.m_delayRotationCCW - timeDelta
+			if (self.m_delayRotationCCW <= 0) then
+				self.m_delayRotationCCW = ROTATION_AUTOREPEAT_TIMER
+				self.m_events = setFlag(self.m_events, Game.Event.ROTATE_CCW)
 			end
 		end
 
@@ -793,10 +800,10 @@ function Game:onEventStart(command)
         self.m_delayDown = DAS_DELAY_TIMER
     elseif (command == Game.Event.ROTATE_CW) then
         self.m_events = setFlag(self.m_events, Game.Event.ROTATE_CW)
-        self.m_delayRotation = ROTATION_AUTOREPEAT_DELAY
+        self.m_delayRotationCW = ROTATION_AUTOREPEAT_DELAY
     elseif (command == Game.Event.ROTATE_CCW) then
         self.m_events = setFlag(self.m_events, Game.Event.ROTATE_CCW)
-        self.m_delayRotation = ROTATION_AUTOREPEAT_DELAY
+        self.m_delayRotationCCW = ROTATION_AUTOREPEAT_DELAY
     elseif (command == Game.Event.MOVE_LEFT) then
         self.m_events = setFlag(self.m_events, Game.Event.MOVE_LEFT)
         self.m_delayLeft = DAS_DELAY_TIMER
@@ -821,8 +828,8 @@ function Game:onEventEnd(command)
     elseif (command == Game.Event.MOVE_RIGHT) then
         self.m_delayRight = -1
     elseif (command == Game.Event.ROTATE_CW) then
-        self.m_delayRotation = -1
+        self.m_delayRotationCW = -1
     elseif (command == Game.Event.ROTATE_CCW) then
-        self.m_delayRotation = -1
+        self.m_delayRotationCCW = -1
 	end
 end
