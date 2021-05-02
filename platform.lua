@@ -112,7 +112,7 @@ function Platform:init()
     for shadow = 0, 1 do
         self.m_blocks[shadow] = {}
         for color = 0, Game.COLORS - 1 do
-            self.m_blocks[shadow][color] = love.graphics.newQuad(TILE_SIZE * color, (TILE_SIZE + 1) * shadow,
+            self.m_blocks[shadow][color] = love.graphics.newQuad(TILE_SIZE * color, (TILE_SIZE+1) * shadow,
                                                                  TILE_SIZE + 1, TILE_SIZE + 1, w, h)
         end
     end
@@ -159,8 +159,9 @@ function Platform:renderGame()
         for i = 0, Game.TETROMINO_SIZE - 1 do
             for j = 0, Game.TETROMINO_SIZE - 1 do
                 if (Game:nextBlock().cells[i][j] ~= Game.Cell.EMPTY) then
-                    Platform:drawTile(PREVIEW_X + TILE_SIZE * i,
-                                      PREVIEW_Y + TILE_SIZE * j,
+                    print(PREVIEW_X, TILE_SIZE, i)
+                    Platform:drawTile(PREVIEW_X + TILE_SIZE * i - 1,
+                                      PREVIEW_Y + TILE_SIZE * j - 1,
                                       Game:nextBlock().cells[i][j], 0)
                 end
             end
@@ -172,8 +173,8 @@ function Platform:renderGame()
         for i = 0, Game.TETROMINO_SIZE - 1 do
             for j = 0, Game.TETROMINO_SIZE - 1 do
                 if (Game:fallingBlock().cells[i][j] ~= Game.Cell.EMPTY) then
-                    Platform:drawTile(BOARD_X + (TILE_SIZE * (Game:fallingBlock().x + i)),
-                                      BOARD_Y + (TILE_SIZE * (Game:fallingBlock().y + Game:shadowGap() + j)),
+                    Platform:drawTile(BOARD_X + (TILE_SIZE * (Game:fallingBlock().x + i)) - 1,
+                                      BOARD_Y + (TILE_SIZE * (Game:fallingBlock().y + Game:shadowGap() + j)) - 1,
                                       Game:fallingBlock().cells[i][j], 1)
                 end
             end
@@ -184,8 +185,8 @@ function Platform:renderGame()
     for i = 0, Game.BOARD_TILEMAP_WIDTH - 1 do
         for j = 0, Game.BOARD_TILEMAP_HEIGHT - 1 do
             if (Game:getCell(i, j) ~= Game.Cell.EMPTY) then
-                Platform:drawTile(BOARD_X + (TILE_SIZE * i),
-                                  BOARD_Y + (TILE_SIZE * j),
+                Platform:drawTile(BOARD_X + (TILE_SIZE * i) - 1,
+                                  BOARD_Y + (TILE_SIZE * j) - 1,
                                   Game:getCell(i, j), 0)
             end
         end
@@ -195,8 +196,8 @@ function Platform:renderGame()
     for i = 0, Game.TETROMINO_SIZE - 1 do
         for j = 0, Game.TETROMINO_SIZE - 1 do
             if (Game:fallingBlock().cells[i][j] ~= Game.Cell.EMPTY) then
-                Platform:drawTile(BOARD_X + TILE_SIZE * (Game:fallingBlock().x + i),
-                                  BOARD_Y + TILE_SIZE * (Game:fallingBlock().y + j),
+                Platform:drawTile(BOARD_X + TILE_SIZE * (Game:fallingBlock().x + i) - 1,
+                                  BOARD_Y + TILE_SIZE * (Game:fallingBlock().y + j) - 1,
                                   Game:fallingBlock().cells[i][j], 0)
             end
         end

@@ -364,7 +364,6 @@ end
 -- Rotate falling tetromino. If there are no collisions when the
 -- tetromino is rotated this modifies the tetromino's cell buffer.
 function Game:rotateTetromino(clockwise)
-    local i, j
 
 	-- Temporary array to hold rotated cells.
 	local rotated = {}
@@ -393,7 +392,7 @@ function Game:rotateTetromino(clockwise)
 
 	-- Check collision with left wall.
 	if (self.m_fallingBlock.x < 0) then
-        i = 0
+        local i = 0
 		while ((wallDisplace == 0) and (i < -self.m_fallingBlock.x)) do
 			for j = 0, self.m_fallingBlock.size - 1 do
 				if (rotated[i][j] ~= Game.Cell.EMPTY) then
@@ -405,7 +404,7 @@ function Game:rotateTetromino(clockwise)
 		end
 	-- Or check collision with right wall.
 	elseif (self.m_fallingBlock.x > Game.BOARD_TILEMAP_WIDTH - self.m_fallingBlock.size) then
-		i = self.m_fallingBlock.size - 1
+		local i = self.m_fallingBlock.size - 1
 		while ((wallDisplace == 0) and (i >= Game.BOARD_TILEMAP_WIDTH - self.m_fallingBlock.x)) do
 			for j = 0, self.m_fallingBlock.size - 1 do
 				if (rotated[i][j] ~= Game.Cell.EMPTY) then
@@ -506,7 +505,6 @@ end
 -- This function detects if there are filled rows or if the move
 -- lands a falling tetromino, also checks for game over condition.
 function Game:moveTetromino(x, y)
-	local i, j
 
 	-- Check if the move would create a collision.
 	if (Game:checkCollision(x, y)) then
@@ -557,7 +555,7 @@ function Game:moveTetromino(x, y)
 					Game:onFilledRows(numFilledRows)
 				end
 				self.m_stats.totalPieces = self.m_stats.totalPieces + 1
-				self.m_stats.pieces[self.m_fallingBlock.type] 
+				self.m_stats.pieces[self.m_fallingBlock.type]
                         = self.m_stats.pieces[self.m_fallingBlock.type] + 1
 
 				-- Use preview tetromino as falling tetromino.
@@ -597,7 +595,7 @@ function Game:dropTetromino()
 
 	-- Update score.
 	if (self.m_showShadow) then
-		self.m_stats.score = self.m_stats.score + (SCORE_2_FILLED_ROW * (self.m_stats.level + 1) 
+		self.m_stats.score = self.m_stats.score + (SCORE_2_FILLED_ROW * (self.m_stats.level + 1)
                                                   / SCORE_DROP_WITH_SHADOW_DIVISOR)
 	else
 		self.m_stats.score = self.m_stats.score + (SCORE_2_FILLED_ROW * (self.m_stats.level + 1)
@@ -757,7 +755,7 @@ function Game:update()
 
 				if isFlagSet(self.m_events, Game.Event.MOVE_DOWN) then
 					-- Update score if the player accelerates downfall.
-					self.m_stats.score = self.m_stats.score + (SCORE_2_FILLED_ROW * (self.m_stats.level + 1) 
+					self.m_stats.score = self.m_stats.score + (SCORE_2_FILLED_ROW * (self.m_stats.level + 1)
                                                                / SCORE_MOVE_DOWN_DIVISOR)
 
 					Game:moveTetromino(0, 1)
